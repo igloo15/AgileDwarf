@@ -18,7 +18,7 @@
 
 <p>
   <%= content_tag(:label, l(:label_settings_columncount)) %>
-  <%= select_tag("settings[stcolumncount]", options_for_select([2, 3, 4, 5], Setting.plugin_AgileDwarf['stcolumncount'].to_i)) %>
+  <%= select_tag("settings[stcolumncount]", options_for_select([2, 3, 4, 5, 6, 7], Setting.plugin_AgileDwarf['stcolumncount'].to_i)) %>
 </p>
 
 <div id="stcolumns">
@@ -45,5 +45,15 @@
     <p>
       <%= content_tag(:label, l(:label_settings_column5status)) %>
       <%= select_tag("settings[stcolumn5]", options_from_collection_for_select(IssueStatus.all, :id, :name, Setting.plugin_AgileDwarf['stcolumn5'].to_i)) %>
+    </p>
+
+    <p>
+      <%= content_tag(:label, l(:label_settings_column6status)) %>
+      <%= select_tag("settings[stcolumn6]", options_from_collection_for_select(IssueStatus.all, :id, :name, Setting.plugin_AgileDwarf['stcolumn6'].to_i)) %>
+    </p>
+
+    <p>
+      <%= content_tag(:label, l(:label_settings_column7status)) %>
+      <%= select_tag("settings[stcolumn7]", options_from_collection_for_select(IssueStatus.all, :id, :name, Setting.plugin_AgileDwarf['stcolumn7'].to_i)) %>
     </p>
 </div>

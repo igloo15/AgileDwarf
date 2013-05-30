@@ -11,10 +11,11 @@ var Burndown = function ($)
         if (typeof mysql != 'string')
             return null;
         // 2011/11/03 00:00:00 +0800
-        // var t = mysql.split(/[\/ \-:]/);
-        var t = mysql.split('-');
+        var t = mysql.split(/[\/ \-:]/);
+        //var t = mysql.split('-');
         // [Y, M, D]
-        return Date.UTC(t[0], t[1] - 1, t[2].substr(0,2));
+        //return Date.UTC(t[0], t[1] - 1, t[2].substr(0,2));
+        return Date.UTC(t[0], t[1] - 1, t[2]);
     };
 
     obj.setSettings = function (s)
@@ -47,7 +48,7 @@ var Burndown = function ($)
             if (!tasks.hasOwnProperty(id))
                 continue;
 
-            tasks[id].sprints_tasks.created_on = Date.fromMysql(tasks[id].sprints_tasks.created_on);
+            tasks[id].created_on = Date.fromMysql(tasks[id].created_on);
         }
         // loop through changes
         for (i = 0, len = changes.length; i < len; )
@@ -61,7 +62,7 @@ var Burndown = function ($)
             {
                 if (!tasks.hasOwnProperty(id))
                     continue;
-                var task = tasks[id].sprints_tasks;
+                var task = tasks[id];
                 // delete tasks, that was created after current date
                 if (task.created_on > dateTime)
                     delete tasks[id];
@@ -79,10 +80,9 @@ var Burndown = function ($)
             while (dateTime == changeDate)
             {
                 if (changes[i].prop_key == 'done_ratio')
-                    tasks[changes[i].issueId].sprints_tasks.done_ratio = changes[i].value;
+                    tasks[changes[i].issueId].done_ratio = changes[i].value;
                 else
-                    tasks[changes[i].issueId].sprints_tasks.estimated_hours = changes[i].value;
-
+                    tasks[changes[i].issueId].estimated_hours = changes[i].value;
                 // next change
                 i++;
                 if (i >= len)
