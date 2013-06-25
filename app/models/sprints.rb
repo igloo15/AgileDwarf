@@ -5,10 +5,10 @@ class Sprints < Version
 
   class << self
     def open_sprints(project)
-      scoped(:order => 'ir_start_date ASC, ir_end_date ASC', :conditions => [ "status = 'open' and project_id = ?", project.id ])
+      scoped(:order => 'ir_start_date ASC, ir_end_date ASC', :conditions => [ "status = 'open' and project_id in (?)", project.shared_versions.all ])
     end
     def all_sprints(project)
-      scoped(:order => 'ir_start_date ASC, ir_end_date ASC', :conditions => [ "project_id = ?", project.id ])
+      scoped(:order => 'ir_start_date ASC, ir_end_date ASC', :conditions => [ "project_id in (?)", project.shared_versions.all ])
     end
   end
 
